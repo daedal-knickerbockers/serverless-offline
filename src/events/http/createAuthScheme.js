@@ -41,8 +41,8 @@ export default function createAuthScheme(authorizerOptions, provider, lambda) {
       // aws doesn't auto decode path params - hapi does
       const pathParams = { ...request.params }
 
-      const accountId = 'random-account-id'
-      const apiId = 'random-api-id'
+      const accountId = process.env.SLS_OFFLINE_ACCOUNT_ID ||'random-account-id'
+      const apiId = process.env.SLS_OFFLINE_API_ID || 'random-api-id'
       const httpMethod = request.method.toUpperCase()
       const resourcePath = request.path.replace(
         new RegExp(`^/${provider.stage}`),
